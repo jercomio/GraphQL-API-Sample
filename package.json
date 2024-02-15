@@ -1,7 +1,7 @@
 {
-  "name": "s-api",
+  "name": "graphql-api-sample",
   "version": "1.0.0",
-  "description": "Leica M-Lenses API",
+  "description": "GraphQL API Sample",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
