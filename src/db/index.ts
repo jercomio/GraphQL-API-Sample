@@ -1,3 +1,4 @@
+// This file is used to create a mock database for the sample API.
 const users = [
     {
       id: 1,
