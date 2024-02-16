@@ -1,6 +1,6 @@
 # GraphQL API Sample
 
-This GraphQL API sample with Apollo Server.
+A GraphQL API sample with Apollo Server.
 
 ## Launch server
 To launch the server, you have to execute in terminal this following command :
