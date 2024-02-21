@@ -1,6 +1,11 @@
 # GraphQL API Sample
+version: 1.1.0
 
 A GraphQL API sample with Apollo Server.
+
+### Features
+Queries : users/books or user(username)/book(username) 
+Mutations : add/update/delete user or book
 
 ## Launch server
 To launch the server, you have to execute in terminal this following command :
