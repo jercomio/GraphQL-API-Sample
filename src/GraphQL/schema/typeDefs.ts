@@ -1,7 +1,7 @@
 // GraphQL Schema
 
 const typeDefs = `#graphql
-  # Custom scalar type
+  # Types
   type Book {
     id: ID!
     title: String!
