@@ -1,9 +1,9 @@
 // Types for Resolvers Params
-type ID = Number
+type ID = number
 
-type UserName = String
+type UserName = string
 
-type UserEmail = String
+type UserEmail = string
 
 type UserParams = {
   userName?: UserName
@@ -11,30 +11,30 @@ type UserParams = {
 }
 
 type AddUserParams = {
-  id: Number
-  name: String
-  age: Number
-  email: String
+  id: number
+  name: string
+  age: number
+  email: string
 }
 
 type AddBookParams = {
-  id: Number
-  title: String
-  author: String
-  published: Number
-  users: [String]
+  id: number
+  title: string
+  author: string
+  published: number
+  users: [string]
 }
 
 type UpdateBookParams = {
-  title: String
-  author: String
-  published: Number
-  users: [String]
+  title: string
+  author: string
+  published: number
+  users: [string]
 }
 
 type UpdateUserParams = {
-  age: Number
-  email: String
+  age: number
+  email: string
 }
 
 export {

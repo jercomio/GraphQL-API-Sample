@@ -1,21 +1,21 @@
 // This file is used to create a mock database for the sample API.
 interface User {
-  id: Number,
-  name: String,
-  age: Number,
-  email: String,
+  id: number,
+  name: string,
+  age: number,
+  email: string,
   books: () => Book[]
 }
   
 interface Book {
-  id: Number,
-  title: String,
-  author: String,
-  published: Number,
-  users: String[]
+  id: number,
+  title: string,
+  author: string,
+  published: number,
+  users: string[]
 }
 
-const booksByUser = (userName: String) => {
+const booksByUser = (userName: string) => {
   return books.filter((book) => {
     if (book.users.includes(userName)) {
       return book;
