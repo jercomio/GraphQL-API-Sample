@@ -21,9 +21,9 @@ const typeDefs = `#graphql
   # Query and Mutation types
   type Query {
     books: [Book!]!
-    book(userName: String!): [Book!]!
+    book(userName: String): [Book!]!
     users: [User!]!
-    user(userName: String!): [User!]!
+    user(userName: String, userEmail: String): [User!]!
   }
 
   type Mutation {

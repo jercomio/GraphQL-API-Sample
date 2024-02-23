@@ -1,14 +1,18 @@
 import { books, booksByUser, users } from "../../db/index.js";
-
+import { AddBookParams, AddUserParams, ID, UpdateBookParams, UpdateUserParams, UserParams } from "./types.js";
 
 const resolvers = {
     Query: {
       users: () => users,
-      user: (_, {userName}) => {
-        return users.filter(user => user.name === userName);
+      user: (_, {userName, userEmail}: UserParams) => { 
+        if (userName) {
+          return users.filter(user => user.name === userName)
+        } else if (userEmail) {
+          return users.filter(user => user.email === userEmail)
+        }
       },
       books: () => books,
-      book: (_, {userName}) => {
+      book: (_, {userName}: UserParams) => {
         return books.filter((book) => {
           if (book.users.includes(userName)) {
             return book;
@@ -17,7 +21,7 @@ const resolvers = {
       }
     },
     Mutation: {
-      addUser: (_, {addUser}) => {
+      addUser: (_, {addUser}: {addUser: AddUserParams}) => {
         let checkID = users.findIndex(user => user.id === addUser.id)
         if (checkID === -1) {
           const userBooks = {books: () => booksByUser(addUser.name)}
@@ -28,7 +32,7 @@ const resolvers = {
           throw new Error("User already exists");
         }
       },
-      addBook: (_, {addBook}) => {
+      addBook: (_, {addBook}: {addBook: AddBookParams}) => {
         let checkID = books.findIndex(book => book.id === addBook.id)
         if (checkID === -1) {
           let newBook = addBook
@@ -38,7 +42,7 @@ const resolvers = {
           throw new Error("Book already exists")
         }
       },
-      updateBook: (_, {id, updateBook}) => {
+      updateBook: (_, {id, updateBook}: {id: ID, updateBook: UpdateBookParams}) => {
         let checkID = books.findIndex(book => book.id === id)
         if (checkID !== -1) {
           books[checkID] = {...books[checkID], ...updateBook}
@@ -47,7 +51,7 @@ const resolvers = {
           throw new Error("Book does not exist")
         }
       },
-      updateUser: (_, {id, updateUser}) => {
+      updateUser: (_, {id, updateUser}: {id: ID, updateUser: UpdateUserParams}) => {
         let checkID = users.findIndex(user => user.id === id)
         if (checkID !== -1) {
           users[checkID] = {...users[checkID], ...updateUser}
@@ -56,7 +60,7 @@ const resolvers = {
           throw new Error("User does not exist")
         }
       },
-      deleteUser: (_, {id}) => {
+      deleteUser: (_, {id}: {id: ID}) => {
         let checkID = users.findIndex(user => user.id === id)
         if (checkID !== -1) {
           users.splice(checkID, 1)
@@ -65,7 +69,7 @@ const resolvers = {
           throw new Error("User does not exist")
         }
       },
-      deleteBook: (_, {id}) => {
+      deleteBook: (_, {id}: {id: ID}) => {
         let checkID = books.findIndex(book => book.id === id)
         if (checkID !== -1) {
           books.splice(checkID, 1)

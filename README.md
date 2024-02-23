@@ -1,10 +1,11 @@
 # GraphQL API Sample
-version: 1.1.0
+version: 1.1.1
 
-A GraphQL API sample with Apollo Server.
+A GraphQL API sample with Apollo Server.  
+*Type Safe*
 
 ### Features
-`Queries` : users/books or user(username)/book(username)   
+`Queries` : users/books or user(userName, userEmail)/book(userName)   
 `Mutations` : add/update/delete user or book
 
 ## Launch server
