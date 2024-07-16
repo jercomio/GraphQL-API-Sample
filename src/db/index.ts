@@ -15,6 +15,33 @@ interface Book {
   users: string[]
 }
 
+interface Library {
+  id: number,
+  name: string,
+  description: string,
+  date: string,
+  Owner: string,
+  readers: {
+    numberOfReaders: NumberOfReaders,
+    nameOfReaders: NameOfReaders
+  }
+}
+
+type NumberOfReaders = () => number
+type NameOfReaders = () => string[] | string
+
+const numberOfReaders = () => {
+  return users.length
+}
+
+const nameOfReaders = () => {
+  if (users.length > 0) {
+    return users.map(user => user.name)
+  } else {
+    return "No readers"
+  }
+}
+
 const booksByUser = (userName: string) => {
   return books.filter((book) => {
     if (book.users.includes(userName)) {
@@ -22,6 +49,20 @@ const booksByUser = (userName: string) => {
     }
   });
 }
+
+const library: Library[] = [
+  {
+    id: 1,
+    name: "Graph Library",
+    description: "A library for example",
+    date: "2024-01-01",
+    Owner: "James Books",
+    readers: {
+      numberOfReaders: () => numberOfReaders(),
+      nameOfReaders: () => nameOfReaders()
+    },
+  }
+]
 
 const users: User[] = [
     {
@@ -57,4 +98,4 @@ const users: User[] = [
     },
   ];
   
-  export { users, books, booksByUser }
+  export { library, users, books, booksByUser, numberOfReaders }

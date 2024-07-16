@@ -2,6 +2,20 @@
 
 const typeDefs = `#graphql
   # Types
+  type Library {
+    id: ID!
+    name: String!
+    description: String!
+    date: String!
+    Owner: String!
+    readers: Readers!
+  }
+
+  type Readers {
+    numberOfReaders: Int!
+    nameOfReaders: [String!]
+  }
+
   type Book {
     id: ID!
     title: String!
@@ -20,6 +34,7 @@ const typeDefs = `#graphql
 
   # Query and Mutation types
   type Query {
+    library: [Library!]!
     books: [Book!]!
     book(userName: String): [Book!]!
     users: [User!]!

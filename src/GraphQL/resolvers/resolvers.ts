@@ -1,8 +1,9 @@
-import { books, booksByUser, users } from "../../db/index.js";
+import { books, booksByUser, library, users } from "../../db/index.js";
 import { AddBookParams, AddUserParams, ID, UpdateBookParams, UpdateUserParams, UserParams } from "./types.js";
 
 const resolvers = {
     Query: {
+      library: () => library,
       users: () => users,
       user: (_, {userName, userEmail}: UserParams) => { 
         if (userName) {
