@@ -1,6 +1,6 @@
 // This file is used to create a mock database for the sample API.
 interface User {
-  id: number,
+  id: string,
   name: string,
   age: number,
   email: string,
@@ -12,7 +12,7 @@ interface Book {
   title: string,
   author: string,
   published: number,
-  users: string[]
+  users: User[]
 }
 
 interface Library {
@@ -42,12 +42,24 @@ const nameOfReaders = () => {
   }
 }
 
-const booksByUser = (userName: string) => {
+const booksByUser = (userName?: string, userID?: string) => {
   return books.filter((book) => {
-    if (book.users.includes(userName)) {
+    if (book.users.some(user => user.name === userName)) {
+      return book;
+    } else if (book.users.some(user => user.id === userID)) {
       return book;
     }
   });
+}
+
+const getUser = (userID?: string[], userName?: string[]) => {
+  return users.filter((user) => {
+    if (userID?.includes(user.id)) {
+      return user;
+    } else if (userName?.includes(user.name)) {
+      return user;
+    }
+  })
 }
 
 const library: Library[] = [
@@ -66,14 +78,14 @@ const library: Library[] = [
 
 const users: User[] = [
     {
-      id: 1,
+      id: "1",
       name: "John",
       age: 30,
       email: "johndoe@gmail.com",
       books: () => booksByUser('John')
     },
     {
-      id: 2,
+      id: "2",
       name: "Jane",
       age: 25,
       email: "janedoe@gmail.com",
@@ -87,14 +99,14 @@ const users: User[] = [
       title: "The Awakening",
       author: "Kate Chopin",
       published: 1899,
-      users: ['John', 'Jane'],
+      users: getUser(['1','2']),
     },
     {
       id: 2,
       title: "City of Glass",
       author: "Paul Auster",
       published: 1985,
-      users: ['Jane'],
+      users: getUser(['2']),
     },
   ];
   
