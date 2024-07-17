@@ -1,21 +1,25 @@
 import { books, booksByUser, library, users } from "../../db/index.js";
-import { AddBookParams, AddUserParams, ID, UpdateBookParams, UpdateUserParams, UserParams } from "./types.js";
+import { AddBookParams, AddUserParams, ID, UpdateBookParams, UpdateUserParams, UserID, UserParams } from "./types.js";
 
 const resolvers = {
     Query: {
       library: () => library,
       users: () => users,
-      user: (_, {userName, userEmail}: UserParams) => { 
+      user: (_, {userName, userEmail, userID}: UserParams) => { 
         if (userName) {
           return users.filter(user => user.name === userName)
         } else if (userEmail) {
           return users.filter(user => user.email === userEmail)
+        } else if (userID) {
+          return users.filter(user => user.id === userID)
         }
       },
       books: () => books,
-      book: (_, {userName}: UserParams) => {
+      book: (_, {userName, userID}: UserParams) => {
         return books.filter((book) => {
-          if (book.users.includes(userName)) {
+          if (book.users.some(user => user.name === userName)) {
+            return book;
+          } else if (book.users.some(user => user.id === userID)) {
             return book;
           }
         });
@@ -52,7 +56,7 @@ const resolvers = {
           throw new Error("Book does not exist")
         }
       },
-      updateUser: (_, {id, updateUser}: {id: ID, updateUser: UpdateUserParams}) => {
+      updateUser: (_, {id, updateUser}: {id: UserID, updateUser: UpdateUserParams}) => {
         let checkID = users.findIndex(user => user.id === id)
         if (checkID !== -1) {
           users[checkID] = {...users[checkID], ...updateUser}
@@ -61,7 +65,7 @@ const resolvers = {
           throw new Error("User does not exist")
         }
       },
-      deleteUser: (_, {id}: {id: ID}) => {
+      deleteUser: (_, {id}: {id: UserID}) => {
         let checkID = users.findIndex(user => user.id === id)
         if (checkID !== -1) {
           users.splice(checkID, 1)
