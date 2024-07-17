@@ -52,7 +52,7 @@ const booksByUser = (userName?: string, userID?: string) => {
   });
 }
 
-const getUser = (userID?: string[], userName?: string[]) => {
+export const getUser = (userID?: string[], userName?: string[]) => {
   return users.filter((user) => {
     if (userID?.includes(user.id)) {
       return user;
