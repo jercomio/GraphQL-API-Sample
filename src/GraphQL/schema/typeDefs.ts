@@ -21,11 +21,11 @@ const typeDefs = `#graphql
     title: String!
     author: String!
     published: Int!
-    users: [String!]
+    users: [User!]
   }
 
   type User {
-    id: ID!
+    id: String!
     name: String!
     age: Int,
     email: String!,
@@ -36,40 +36,47 @@ const typeDefs = `#graphql
   type Query {
     library: [Library!]!
     books: [Book!]!
-    book(userName: String): [Book!]!
+    book(userName: String, userID: String): [Book!]!
     users: [User!]!
-    user(userName: String, userEmail: String): [User!]!
+    user(userName: String, userEmail: String, userID: String): [User!]!
   }
 
   type Mutation {
     addBook(addBook: AddBook!): Book!
     addUser(addUser: AddUser!): User!
-    updateBook(id: ID!, updateBook: UpdateBook!): Book!
-    updateUser(id: ID!, updateUser: UpdateUser!): User!
-    deleteUser(id: ID!): Boolean!
-    deleteBook(id: ID!): Boolean!
+    updateBook(id: String!, updateBook: UpdateBook!): Book!
+    updateUser(id: String!, updateUser: UpdateUser!): User!
+    deleteUser(id: String!): Boolean!
+    deleteBook(id: String!): Boolean!
   }
 
   input AddUser {
-    id: ID!
+    id: String!
     name: String!
     age: Int
     email: String!
   }
+
+  input UserInput {
+  id: String!
+  name: String!
+  age: Int
+  email: String!
+}
 
   input AddBook {
     id: ID!
     title: String!
     author: String!
     published: Int!
-    users: [String!]
+    users: [UserInput]
   }
 
   input UpdateBook {
     title: String
     author: String
     published: Int
-    users: [String!]
+    users: [UserInput]
   }
 
   input UpdateUser {

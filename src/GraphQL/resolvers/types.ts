@@ -1,17 +1,36 @@
 // Types for Resolvers Params
+type Book = {
+  id: number,
+  title: string,
+  author: string,
+  published: number,
+  users: User[]
+}
+
 type ID = number
 
 type UserName = string
 
 type UserEmail = string
 
+type UserID = string
+
+type User = {
+  id: string,
+  name: string,
+  age: number,
+  email: string,
+  books: () => Book[]
+}
+
 type UserParams = {
   userName?: UserName
   userEmail?: UserEmail
+  userID?: UserID
 }
 
 type AddUserParams = {
-  id: number
+  id: string
   name: string
   age: number
   email: string
@@ -22,14 +41,14 @@ type AddBookParams = {
   title: string
   author: string
   published: number
-  users: [string]
+  users: [User]
 }
 
 type UpdateBookParams = {
   title: string
   author: string
   published: number
-  users: [string]
+  users: [User]
 }
 
 type UpdateUserParams = {
@@ -39,6 +58,7 @@ type UpdateUserParams = {
 
 export {
     ID,
+    UserID,
     UserName,
     UserEmail,
     UserParams,
